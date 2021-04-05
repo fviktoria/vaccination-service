@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Location;
 use App\Models\Vaccination;
 use Illuminate\Database\Seeder;
+use DateTime;
 
 class VaccinationsTableSeeder extends Seeder
 {
@@ -16,10 +17,10 @@ class VaccinationsTableSeeder extends Seeder
     public function run()
     {
 		$vaccination = new Vaccination();
-		$vaccination->maxPatients = 100;
-		$vaccination->date = "2021-05-05";
-		$vaccination->from = "12:00:00";
-		$vaccination->to = "16:00:00";
+		$vaccination->maxPatients = 10;
+		$vaccination->date = new DateTime("2021-05-05");
+		$vaccination->from = new DateTime("12:00:00");
+		$vaccination->to = new DateTime("13:00:00");
 
 		$location = Location::all()->first();
 		$vaccination->location()->associate($location);

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Vaccination;
+use DateTime;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -22,6 +24,16 @@ class UsersTableSeeder extends Seeder
         $user->email = 's1810456009@students.fh-hagenberg.at';
 		$user->password = bcrypt('admin123');
 		$user->gender = 'w';
+		$user->street = 'Musterstraße';
+		$user->houseNo = '1';
+		$user->zipCode = '1000';
+		$user->city = 'Musterstadt';
+		$user->ssno = '1234291296';
+		$user->dateOfBirth = new DateTime('1996-12-29');
+
+		$vaccination = Vaccination::all()->first();
+		$user->vaccination()->associate($vaccination);
+
 		$user->save();
     }
 }
