@@ -11,7 +11,7 @@ class Vaccination extends Model
 {
 	use HasFactory;
 
-	protected $fillable = ['maxPatients', 'date', 'from', 'to'];
+	protected $fillable = ['maxPatients', 'date', 'from', 'to', 'location_id'];
 
 	public function location() : BelongsTo {
 		return $this->belongsTo(Location::class);
