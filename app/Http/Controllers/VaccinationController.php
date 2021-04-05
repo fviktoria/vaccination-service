@@ -13,6 +13,11 @@ class VaccinationController extends Controller
 		return $vaccinations;
 	}
 
+	public function getById($id) {
+		$vaccination = Vaccination::where('id', $id)->with(['location'])->get()->first();
+		return $vaccination;
+	}
+
 	/**
 	 * retrieve vaccination appointments by location
 	 * @param $locationId
