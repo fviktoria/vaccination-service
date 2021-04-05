@@ -50,47 +50,26 @@ class VaccinationController extends Controller
 		}
 	}
 
-	/*	public function update (Request $request, string $isbn) : JsonResponse {
+	public function update (Request $request, string $id) : JsonResponse {
 			DB::beginTransaction();
 			try {
-				$book = Book::with(['authors', 'images', 'user'])->where('isbn', $isbn)->first();
+				$vaccination = Vaccination::with(['location'])->where('id', $id)->first();
 
-				if ($book != null) {
-					$request = $this->parseRequest($request);
-					$book->update($request->all());
-
-					$book->images()->delete();
-
-					// update images
-					if (isset($request['images']) && is_array($request['images'])) {
-						foreach ($request['images'] as $img) {
-							$image = Image::firstOrNew(['url' => $img['url'], 'title' => $img['title']]);
-							$book->images()->save($image);
-						}
-					}
-
-					// update authors
-					$ids = [];
-					if (isset($request['authors']) && is_array($request['authors'])) {
-						foreach ($request['authors'] as $auth) {
-							array_push($ids, $auth['id']);
-						}
-					}
-
-					$book->authors()->sync($ids);
-					$book->save();
+				if ($vaccination != null) {
+					$vaccination->update($request->all());
+					$vaccination->save();
 				}
 
 				DB::commit();
-				$book1 = Book::with(['authors', 'images', 'user'])->get();
-				return response()->json($book1, 201);
+				$vaccination1 = Vaccination::with(['location'])->where('id', $id)->first();
+				return response()->json($vaccination1, 201);
 
 			} catch (\Exception $e) {
 				DB::rollBack();
 				return response()->json("updating book failed: " . $e->getMessage(), 420);
 			}
 		}
-
+/*
 		public function delete (string $isbn) : JsonResponse {
 			$book = Book::where('isbn', $isbn)->first();
 
