@@ -22,5 +22,14 @@ class LocationsTableSeeder extends Seeder
 		$location->city = "Wien";
 
 		$location->save();
+
+		$location2 = new Location();
+		$location2->name = "Apotheke Zum heiligen Ägidus";
+		$location2->street = "Gumpendorfer Straße";
+		$location2->houseNo = "105";
+		$location2->zipCode = "1060";
+		$location2->city = "Wien";
+
+		$location2->save();
     }
 }
