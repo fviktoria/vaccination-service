@@ -11,8 +11,10 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        // User::factory(10)->create();
-    }
+	public function run()
+	{
+		$this->call(LocationsTableSeeder::class);
+		$this->call(VaccinationsTableSeeder::class);
+		$this->call(UsersTableSeeder::class);
+	}
 }
