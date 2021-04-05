@@ -66,21 +66,21 @@ class VaccinationController extends Controller
 
 			} catch (\Exception $e) {
 				DB::rollBack();
-				return response()->json("updating book failed: " . $e->getMessage(), 420);
+				return response()->json("updating vaccination failed: " . $e->getMessage(), 420);
 			}
 		}
-/*
-		public function delete (string $isbn) : JsonResponse {
-			$book = Book::where('isbn', $isbn)->first();
 
-			if ($book != null) {
-				$book->delete();
+		public function delete (string $id) : JsonResponse {
+			$vaccination = Vaccination::where('id', $id)->first();
+
+			if ($vaccination != null) {
+				$vaccination->delete();
 			} else {
-				throw new \Exception("Book doesn't exist.");
+				throw new \Exception("Vaccination doesn't exist.");
 			}
 
-			return response()->json("Book with isbn ". $isbn . " deleted successfully.", 201);
-		}*/
+			return response()->json("Vaccination with ID ". $id . " deleted successfully.", 201);
+		}
 
 	/**
 	 * modify / convert values if needed
