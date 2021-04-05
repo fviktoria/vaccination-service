@@ -25,6 +25,10 @@ class CreateVaccinationsTable extends Migration
             $table->date('date');
             $table->time('from');
             $table->time('to');
+			$table->bigInteger('location_id')->unsigned()->nullable();
+			$table->foreign('location_id')
+				->references('id')->on('locations')
+				->onDelete('cascade');
         });
     }
 

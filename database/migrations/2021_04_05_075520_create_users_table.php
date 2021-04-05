@@ -31,6 +31,11 @@ class CreateUsersTable extends Migration
             $table->string('ssno', 10)->unique();
             $table->rememberToken();
             $table->timestamps();
+
+			// no cascade, bc user shouldn't be automatically deleted when vaccination is deleted
+			// (should still be able to login)
+			$table->foreignId('vaccination_id')->nullable();
+
         });
     }
 
