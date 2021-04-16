@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\VaccinationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,5 @@ Route::post('vaccinations', [VaccinationController::class, 'save']);
 Route::put('vaccinations/{id}', [VaccinationController::class, 'update']);
 
 Route::delete('vaccinations/{id}', [VaccinationController::class, 'delete']);
+
+Route::get('users', [UserController::class, 'getAll']);
