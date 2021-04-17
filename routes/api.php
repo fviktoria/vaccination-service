@@ -41,3 +41,4 @@ Route::put('users/setVaccinationStatus/{id}', [UserController::class, 'setVaccin
  * locations
  */
 Route::get('locations', [LocationController::class, 'getAll']);
+Route::get('locations/{id}', [LocationController::class, 'getById']);

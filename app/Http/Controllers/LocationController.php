@@ -11,4 +11,9 @@ class LocationController extends Controller
 		$locations = Location::all();
 		return $locations;
 	}
+
+	public function getById($id) {
+		$location = Location::where('id', $id)->first();
+		return $location;
+	}
 }
