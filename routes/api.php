@@ -35,6 +35,7 @@ Route::delete('vaccinations/{id}', [VaccinationController::class, 'delete']);
  * users
  */
 Route::get('users', [UserController::class, 'getAll']);
+Route::put('users/setVaccinationStatus/{id}', [UserController::class, 'setVaccinationStatus']);
 
 /**
  * locations
