@@ -30,7 +30,7 @@ class VaccinationController extends Controller
 	}
 
 	public function save(Request $request): JsonResponse {
-		//$request = $this->parseRequest($request);
+		$request = $this->parseRequest($request);
 
 		DB::beginTransaction();
 		try {
