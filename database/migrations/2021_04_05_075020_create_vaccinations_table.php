@@ -23,8 +23,8 @@ class CreateVaccinationsTable extends Migration
             $table->timestamps();
 			$table->integer('maxPatients');
             $table->date('date');
-            $table->time('from');
-            $table->time('to');
+            $table->string('from');
+            $table->string('to');
 			$table->bigInteger('location_id')->unsigned();
 			$table->foreign('location_id')
 				->references('id')->on('locations')

@@ -51,6 +51,8 @@ class VaccinationController extends Controller
 	}
 
 	public function update (Request $request, string $id) : JsonResponse {
+			$request = $this->parseRequest($request);
+
 			DB::beginTransaction();
 			try {
 				$vaccination = Vaccination::with(['location'])->where('id', $id)->first();
