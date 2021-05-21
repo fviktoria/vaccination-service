@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,24 +22,28 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('vaccinations', [VaccinationController::class, 'getAll']);
-Route::get('vaccinations/{id}', [VaccinationController::class, 'getById']);
-Route::get('vaccinations/location/{locationId}', [VaccinationController::class, 'getByLocation']);
+Route::group(['middleware' => ['api', 'auth.jwt']], function(){
+    Route::get('vaccinations', [VaccinationController::class, 'getAll']);
+    Route::get('vaccinations/{id}', [VaccinationController::class, 'getById']);
+    Route::get('vaccinations/location/{locationId}', [VaccinationController::class, 'getByLocation']);
+    Route::post('vaccinations', [VaccinationController::class, 'save']);
+    Route::put('vaccinations/{id}', [VaccinationController::class, 'update']);
+    Route::delete('vaccinations/{id}', [VaccinationController::class, 'delete']);
 
-Route::post('vaccinations', [VaccinationController::class, 'save']);
-
-Route::put('vaccinations/{id}', [VaccinationController::class, 'update']);
-
-Route::delete('vaccinations/{id}', [VaccinationController::class, 'delete']);
-
-/**
- * users
- */
-Route::get('users', [UserController::class, 'getAll']);
-Route::put('users/setVaccinationStatus/{id}', [UserController::class, 'setVaccinationStatus']);
+    /**
+     * users
+     */
+    Route::get('users', [UserController::class, 'getAll']);
+    Route::put('users/setVaccinationStatus/{id}', [UserController::class, 'setVaccinationStatus']);
+});
 
 /**
  * locations
  */
 Route::get('locations', [LocationController::class, 'getAll']);
 Route::get('locations/{id}', [LocationController::class, 'getById']);
+
+/**
+ * login
+ */
+Route::post('auth/login', [AuthController::class,'login']);
