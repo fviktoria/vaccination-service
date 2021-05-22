@@ -38,17 +38,19 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user = User::where('id', $request->userId)->first();
-            $vaccination = Vaccination::where('id', $request->vaccinationId)->first();
+            $vaccination = Vaccination::where('id', $request->vaccinationId)->withCount(['users'])->first();
 
-            if ($user != null) {
+            if ($user != null && $vaccination->users_count < $vaccination->maxPatients) {
                 $user->vaccination()->associate($vaccination);
                 $user->save();
+
+                DB::commit();
+                $user1 = User::with(['vaccination'])->where('id', $request->userId)->first();
+                return response()->json($user1, 201);
+            } else {
+                DB::rollBack();
+                return response()->json("updating vaccination status failed: max patients reached", 420);
             }
-
-            DB::commit();
-            $user1 = User::with(['vaccination'])->where('id', $request->userId)->first();
-            return response()->json($user1, 201);
-
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json("updating vaccination status failed: " . $e->getMessage(), 420);
