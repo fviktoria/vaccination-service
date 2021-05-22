@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vaccination;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -31,5 +32,26 @@ class UserController extends Controller
 				DB::rollBack();
 				return response()->json("updating vaccination status failed: " . $e->getMessage(), 420);
 			}
+    }
+
+    public function setVaccinationAppointment(Request $request) {
+        DB::beginTransaction();
+        try {
+            $user = User::where('id', $request->userId)->first();
+            $vaccination = Vaccination::where('id', $request->vaccinationId)->first();
+
+            if ($user != null) {
+                $user->vaccination()->associate($vaccination);
+                $user->save();
+            }
+
+            DB::commit();
+            $user1 = User::with(['vaccination'])->where('id', $request->userId)->first();
+            return response()->json($user1, 201);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json("updating vaccination status failed: " . $e->getMessage(), 420);
+        }
     }
 }
