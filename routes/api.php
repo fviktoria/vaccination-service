@@ -35,7 +35,7 @@ Route::group(['middleware' => ['api', 'auth.jwt']], function(){
      */
     Route::get('users', [UserController::class, 'getAll']);
     Route::put('users/setVaccinationStatus/{id}', [UserController::class, 'setVaccinationStatus']);
-    Route::post('users/signup', [UserController::class, 'setVaccinationAppointment']);
+    Route::put('users/signup', [UserController::class, 'setVaccinationAppointment']);
 
     Route::post('auth/logout', [AuthController::class,'logout']);
 });
