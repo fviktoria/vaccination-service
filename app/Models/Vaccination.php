@@ -20,4 +20,10 @@ class Vaccination extends Model
 	public function users() : HasMany {
 		return $this->hasMany(User::class);
 	}
+
+    public function getPatientCount()
+    {
+        return $this->hasMany(User::class)->count();
+
+    }
 }

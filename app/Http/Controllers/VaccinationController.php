@@ -25,7 +25,7 @@ class VaccinationController extends Controller
 	 * retrieve vaccination appointments by location
 	 */
 	public function getByLocation($locationId) {
-		$vaccinations = Vaccination::where('location_id', $locationId)->with(['location'])->get();
+		$vaccinations = Vaccination::where('location_id', $locationId)->with(['location'])->withCount(['users'])->get();
 		return $vaccinations;
 	}
 
