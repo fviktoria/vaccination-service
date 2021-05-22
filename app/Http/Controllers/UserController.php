@@ -15,6 +15,11 @@ class UserController extends Controller
 		return $users;
 	}
 
+	public function getById($id) {
+        $user = User::with(['vaccination'])->where('id', $id)->first();
+        return $user;
+    }
+
     public function setVaccinationStatus(Request $request, string $id) {
         DB::beginTransaction();
 			try {
