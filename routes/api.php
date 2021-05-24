@@ -28,6 +28,7 @@ Route::group(['middleware' => ['api', 'auth.jwt']], function(){
     Route::post('vaccinations', [VaccinationController::class, 'save']);
     Route::put('vaccinations/{id}', [VaccinationController::class, 'update']);
     Route::delete('vaccinations/{id}', [VaccinationController::class, 'delete']);
+    Route::get('users/signedup/{vaccinationId}', [UserController::class, 'getPatientsByVaccination']);
 
     /**
      * users
