@@ -25,7 +25,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['api', 'auth.jwt']], function(){
     Route::get('vaccinations', [VaccinationController::class, 'getAll']);
     Route::get('vaccinations/{id}', [VaccinationController::class, 'getById']);
-    Route::get('vaccinations/location/{locationId}', [VaccinationController::class, 'getByLocation']);
     Route::post('vaccinations', [VaccinationController::class, 'save']);
     Route::put('vaccinations/{id}', [VaccinationController::class, 'update']);
     Route::delete('vaccinations/{id}', [VaccinationController::class, 'delete']);
@@ -40,6 +39,8 @@ Route::group(['middleware' => ['api', 'auth.jwt']], function(){
 
     Route::post('auth/logout', [AuthController::class,'logout']);
 });
+
+Route::get('vaccinations/location/{locationId}', [VaccinationController::class, 'getByLocation']);
 
 /**
  * locations

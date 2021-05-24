@@ -15,8 +15,13 @@ class UserController extends Controller
 		return $users;
 	}
 
+    public function getAllPatients() {
+        $users = User::with(['vaccination', 'vaccination.location'])->where('isAdmin', false)->get();
+        return $users;
+    }
+
 	public function getById($id) {
-        $user = User::with(['vaccination'])->where('id', $id)->first();
+        $user = User::with(['vaccination', 'vaccination.location'])->where('id', $id)->first();
         return $user;
     }
 
