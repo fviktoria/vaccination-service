@@ -40,6 +40,10 @@ Route::group(['middleware' => ['api', 'auth.jwt']], function(){
     Route::put('users/{id}/cancelAppointment', [UserController::class, 'cancelAppointment']);
     Route::post('auth/logout', [AuthController::class,'logout']);
 
+    Route::post('users', [UserController::class, 'save']);
+    Route::put('users/{id}', [UserController::class, 'update']);
+    Route::delete('users/{id}', [UserController::class, 'delete']);
+
     /**
      * locations
      */

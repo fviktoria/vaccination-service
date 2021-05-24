@@ -93,4 +93,65 @@ class UserController extends Controller
             return response()->json("updating vaccination status failed: " . $e->getMessage(), 420);
         }
     }
+
+    public function save(Request $request): JsonResponse {
+        $request = $this->parseRequest($request);
+
+        DB::beginTransaction();
+        try {
+            $user = User::create($request->all());
+
+            DB::commit();
+            return response()->json($user, 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json('saving user failed: ' . $e->getMessage(), 420);
+        }
+    }
+
+    public function update (Request $request, string $id) : JsonResponse {
+        $request = $this->parseRequest($request);
+
+        DB::beginTransaction();
+        try {
+            $user = User::where('id', $id)->first();
+
+            if ($user != null) {
+                $user->update($request->all());
+                $user->save();
+            }
+
+            DB::commit();
+            $user1 = User::where('id', $id)->first();
+            return response()->json($user1, 201);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json("updating user failed: " . $e->getMessage(), 420);
+        }
+    }
+
+    public function delete (string $id) : JsonResponse {
+        $user = User::where('id', $id)->first();
+
+        if ($user != null) {
+            $user->delete();
+        } else {
+            throw new \Exception("user doesn't exist.");
+        }
+
+        return response()->json("user with ID ". $id . " deleted successfully.", 201);
+    }
+
+    private function parseRequest(Request $request): Request {
+
+        // get date and convert it - its in ISO 8601, e.g. "2018-01-01T23:00:00.000Z"
+
+        $date = new \DateTime($request->date);
+
+        $request['date'] = $date;
+
+        return $request;
+
+    }
 }
