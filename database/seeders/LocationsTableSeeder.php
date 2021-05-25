@@ -31,5 +31,23 @@ class LocationsTableSeeder extends Seeder
 		$location2->city = "Wien";
 
 		$location2->save();
+
+        $location3 = new Location();
+        $location3->name = "Austria Center Vienna";
+        $location3->street = "Bruno-Kreisky-Platz";
+        $location3->houseNo = "1";
+        $location3->zipCode = "1220";
+        $location3->city = "Wien";
+
+        $location3->save();
+
+        $location4 = new Location();
+        $location4->name = "Stadthalle";
+        $location4->street = "Roland-Rainer-Platz";
+        $location4->houseNo = "1";
+        $location4->zipCode = "1150";
+        $location4->city = "Wien";
+
+        $location4->save();
     }
 }

@@ -44,9 +44,20 @@ class VaccinationsTableSeeder extends Seeder
 		$vaccination3->from = "14:00:00";
 		$vaccination3->to = "15:00:00";
 
-		$location3 = Location::where('id', 2)->get()->first();
+		$location3 = Location::where('id', 3)->get()->first();
 		$vaccination3->location()->associate($location3);
 
 		$vaccination3->save();
+
+        $vaccination4 = new Vaccination();
+        $vaccination4->maxPatients = 3;
+        $vaccination4->date = new DateTime("2021-05-05");
+        $vaccination4->from = "14:00:00";
+        $vaccination4->to = "15:00:00";
+
+        $location4 = Location::where('id', 4)->get()->first();
+        $vaccination4->location()->associate($location4);
+
+        $vaccination4->save();
     }
 }
