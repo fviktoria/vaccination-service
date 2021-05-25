@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function getPatientsByVaccination($id)
     {
-        $users = User::with(['vaccination', 'vaccination.location'])->where('isAdmin', false)->get();
+        $users = User::with(['vaccination', 'vaccination.location'])->where([['isAdmin', '=', false], ['vaccination_id', '=', $id]])->get();
         return $users;
     }
 
